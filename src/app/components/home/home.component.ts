@@ -1,6 +1,9 @@
 import { Component, ViewEncapsulation} from '@angular/core';
 import {Product, ProductService} from '../../services/product-service.service';
-
+import {FormControl} from '@angular/forms';
+import { FilterPipe } from '../../pipes/filter.pipe';
+//import 'rxjs/add/operator/debounceTime';
+import { debounceTime, map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,11 +12,17 @@ import {Product, ProductService} from '../../services/product-service.service';
 })
 export class HomeComponent{
 
-  products: Array<Product> = []; // <1>
+  products: Product[] = [];
+  titleFilter: FormControl = new FormControl();//отслеживает контролирует значение формы
+  filterCriteria: string;
 
-  constructor(private productService: ProductService) { // <2>
-    this.products = this.productService.getProducts(); // <3>
-   // console.log(this.products);
+  constructor(private productService: ProductService) {
+    this.products = this.productService.getProducts();
+    this.titleFilter.valueChanges.pipe(
+         debounceTime(100)
+      ).subscribe(
+        value => this.filterCriteria = value,
+        error => console.error(error));
   }
 
 }
