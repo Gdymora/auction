@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 /*@angular/common директиви та канали, служби локації, що використовуються при маршрутизації, сервіси HTTP*/
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
@@ -36,6 +36,7 @@ import { FilterPipe } from './pipes/filter.pipe';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule
   ],
   
